@@ -1,4 +1,5 @@
-weatherCheck =str(input("What's the weather like today?(sunny/rainy/cold)")).lower()
+weatherCheck = input("What's the weather like today? (sunny/rainy/cold): ").lower()
+
 print(weatherCheck)
 
 if weatherCheck == "sunny":
