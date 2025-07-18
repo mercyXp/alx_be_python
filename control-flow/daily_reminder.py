@@ -1,12 +1,14 @@
-task = input("What is your task? ").strip()
+# Required prompts with exact wording
+task = input("Enter your task:").strip()
 
-priority = input("What is the priority level of your task (high, medium, low)? ").strip().lower()
+priority = input("Priority (high/medium/low):").strip().lower()
 
-time_bound = input("Is your task time-bound? (yes/no) ").strip().lower()
+time_bound = input("Is it time-bound? (yes/no):").strip().lower()
 
 priority_description = ""
 priority_is_valid = True
 
+# Match Case for priority
 match priority:
     case "high":
         priority_description = "a high priority"
@@ -15,9 +17,10 @@ match priority:
     case "low":
         priority_description = "a low priority"
     case _:
-        print("Error: Invalid priority.")
+        print("Error: Invalid priority entered.")
         priority_is_valid = False
 
+# Conditional modification if time-bound
 if priority_is_valid:
     if time_bound == "yes":
         print(f"Reminder: '{task}' is {priority_description} task that requires immediate attention today!")
