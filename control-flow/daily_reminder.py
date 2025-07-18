@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""
+daily_reminder.py
+"""
+
 # Prompt user for task input
 while True:
     task = input("Enter your task: ").strip()
@@ -19,25 +24,21 @@ while True:
         break
     print("Invalid input. Please enter 'yes' or 'no'.")
 
-# Initialize base reminder
-reminder = ""
-
-# Use match-case to customize message by priority
+# Determine priority-based message
 match priority:
     case "high":
-        reminder = f"Reminder: '{task}' is a high priority task"
+        base_message = f"'{task}' is a high priority task"
     case "medium":
-        reminder = f"Note: '{task}' is a medium priority task"
+        base_message = f"'{task}' is a medium priority task"
     case "low":
-        reminder = f"Note: '{task}' is a low priority task. Consider completing it when you have free time."
+        if time_bound == "yes":
+            base_message = f"'{task}' is a low priority task that still requires immediate attention today!"
+        else:
+            base_message = f"'{task}' is a low priority task. Consider completing it when you have free time."
 
-# Modify message if task is time-bound
-if time_bound == "yes":
-    # Adjust low-priority message separately to override
-    if priority == "low":
-        reminder = f"Reminder: '{task}' is a low priority task that still requires immediate attention today!"
-    else:
-        reminder += " that requires immediate attention today!"
+# Add urgency if time-bound (for high/medium)
+if time_bound == "yes" and priority in ["high", "medium"]:
+    base_message += " that requires immediate attention today!"
 
-# Print final customized reminder
-print("\n" + reminder)
+# ✅ Direct print statement starting with Reminder:
+print(f"Reminder: {base_message}")
