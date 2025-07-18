@@ -1,44 +1,27 @@
-#!/usr/bin/env python3
-"""
-daily_reminder.py
-"""
+task = input("What is your task? ").strip()
 
-# Prompt user for task input
-while True:
-    task = input("Enter your task: ").strip()
-    if task:
-        break
-    print("Task cannot be empty. Please enter a valid task.")
+priority = input("What is the priority level of your task (high, medium, low)? ").strip().lower()
 
-# Prompt user for priority input
-while True:
-    priority = input("Priority (high/medium/low): ").strip().lower()
-    if priority in ["high", "medium", "low"]:
-        break
-    print("Invalid priority. Please enter 'high', 'medium', or 'low'.")
+time_bound = input("Is your task time-bound? (yes/no) ").strip().lower()
 
-# Prompt user for time-bound status
-while True:
-    time_bound = input("Is it time-bound? (yes/no): ").strip().lower()
-    if time_bound in ["yes", "no"]:
-        break
-    print("Invalid input. Please enter 'yes' or 'no'.")
+priority_description = ""
+priority_is_valid = True
 
-# Determine priority-based message
 match priority:
     case "high":
-        base_message = f"'{task}' is a high priority task"
+        priority_description = "a high priority"
     case "medium":
-        base_message = f"'{task}' is a medium priority task"
+        priority_description = "a medium priority"
     case "low":
-        if time_bound == "yes":
-            base_message = f"'{task}' is a low priority task that still requires immediate attention today!"
-        else:
-            base_message = f"'{task}' is a low priority task. Consider completing it when you have free time."
+        priority_description = "a low priority"
+    case _:
+        print("Error: Invalid priority.")
+        priority_is_valid = False
 
-# Add urgency if time-bound (for high/medium)
-if time_bound == "yes" and priority in ["high", "medium"]:
-    base_message += " that requires immediate attention today!"
-
-# ✅ Direct print statement starting with Reminder:
-print(f"Reminder: {base_message}")
+if priority_is_valid:
+    if time_bound == "yes":
+        print(f"Reminder: '{task}' is {priority_description} task that requires immediate attention today!")
+    elif time_bound == "no":
+        print(f"Note: '{task}' is {priority_description} task. Consider finishing it when you have free time.")
+    else:
+        print("Entered an invalid time bound. Please answer 'yes' or 'no'.")
